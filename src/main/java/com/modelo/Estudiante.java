@@ -8,6 +8,9 @@ public class Estudiante {
     private String documento;
     private String fechaCreacion;
 
+    public Estudiante() {
+    }
+
     public Estudiante(int id, String nombres, String apellidos, String celular, String documento, String fechaCreacion) {
         this.id = id;
         this.nombres = nombres;
