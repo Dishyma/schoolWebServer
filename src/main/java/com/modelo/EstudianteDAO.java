@@ -19,7 +19,7 @@ public class EstudianteDAO implements InterfaceCrudEstudiante{
     ResultSet rs;
 
     @Override
-    public List<Estudiante> listarEstudiante() {
+    public List<Estudiante> listarEstudiantes() {
         List<Estudiante> estudiantesList = new ArrayList<>();
 
         try {
@@ -44,12 +44,9 @@ public class EstudianteDAO implements InterfaceCrudEstudiante{
 
             Logger.getLogger(EstudianteDAO.class.getName()).log(Level.SEVERE, null, e);
         }
-        return estudiantesList;
-    }
 
-    @Override
-    public List listarEstudiantes() {
-        return null;
+        return estudiantesList;
+
     }
 
     @Override
@@ -57,7 +54,7 @@ public class EstudianteDAO implements InterfaceCrudEstudiante{
         Estudiante estudiante = new Estudiante();
         try {
             con = cn.getConexion();
-            String consultaEstudiantePorIdSql = "SELECT * FROM estudiantes WERE id=?";
+            String consultaEstudiantePorIdSql = "SELECT * FROM estudiantes WHERE id=?";
             ps = con.prepareStatement(consultaEstudiantePorIdSql);
             ps.setInt(1, id);
             rs = ps.executeQuery();
@@ -77,15 +74,10 @@ public class EstudianteDAO implements InterfaceCrudEstudiante{
     }
 
     @Override
-    public boolean insertEstudiante(int id) {
-        return false;
-    }
-
-    @Override
     public boolean insertEstudiante(Estudiante estudiante) {
         try {
             con = cn.getConexion();
-            String consultaGuardarEstudianteSql = "INSERT INTO  estudiantes(nombres,apellidos,celular,documento, fechaCreacion) VALUES (?,?,?,?, now());";
+            String consultaGuardarEstudianteSql = "INSERT INTO  estudiantes (nombres,apellidos,celular,documento, fechaCreacion) VALUES (?,?,?,?,(now()),);";
             ps = con.prepareStatement(consultaGuardarEstudianteSql);
             ps.setString(1, estudiante.getNombres());
             ps.setString(2, estudiante.getApellidos());
@@ -103,7 +95,7 @@ public class EstudianteDAO implements InterfaceCrudEstudiante{
     public boolean updateEstudiante(Estudiante estudiante) {
         try {
             con = cn.getConexion();
-            String consultaActualizarEstudianteSql = "UPDATE estudiantes SET nombres=?,apellidos=?,celular=?,documento=? WHERE id=?";
+            String consultaActualizarEstudianteSql = "UPDATE estudiante SET nombres=?,apellidos=?,celular=?,documento=? WHERE id=?";
             ps = con.prepareStatement(consultaActualizarEstudianteSql);
             ps.setString(1, estudiante.getNombres());
             ps.setString(2, estudiante.getApellidos());
